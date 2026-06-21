@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { useReveal } from '@/hooks/use-reveal';
 import { cn } from '@/lib/utils';
 
@@ -6,12 +6,13 @@ interface Props {
   children: ReactNode;
   className?: string;
   id?: string;
+  style?: CSSProperties;
 }
 
-export function Reveal({ children, className }: Props) {
+export function Reveal({ children, className, style }: Props) {
   const ref = useReveal<HTMLDivElement>();
   return (
-    <div ref={ref} className={cn('reveal', className)}>
+    <div ref={ref} className={cn('reveal', className)} style={style}>
       {children}
     </div>
   );
