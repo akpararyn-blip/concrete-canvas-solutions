@@ -9,6 +9,7 @@ import {
   Wrench,
   Zap,
 } from 'lucide-react';
+import { ContactFormSection } from '@/components/ContactFormSection';
 import { ImagePlaceholder } from '@/components/ImagePlaceholder';
 import { Reveal, Section } from '@/components/Section';
 import { SITE } from '@/lib/site';
@@ -179,42 +180,13 @@ function HomePage() {
         </div>
       </Section>
 
-      {/* CTA */}
-      <Section>
-        <Reveal>
-          <div
-            className="overflow-hidden rounded-3xl gradient-dark p-8 text-white sm:p-14"
-            style={{ boxShadow: 'var(--shadow-soft)' }}
-          >
-            <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
-              <div>
-                <h3 className="text-3xl font-extrabold leading-tight sm:text-4xl">
-                  Рассчитайте стоимость для вашего объекта
-                </h3>
-                <p className="mt-4 text-lg text-white/75">
-                  Отправьте параметры — мы подберём оптимальную форму поставки и подготовим
-                  коммерческое предложение.
-                </p>
-              </div>
-              <div className="flex flex-col gap-3 lg:items-end">
-                <Link
-                  to="/contacts"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 text-base font-bold text-brand-foreground transition hover:scale-[1.03]"
-                >
-                  Оставить заявку
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <a
-                  href={SITE.phonePrimaryHref}
-                  className="text-sm font-semibold text-white/80 hover:text-white"
-                >
-                  или позвоните: {SITE.phonePrimary}
-                </a>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </Section>
+      {/* CTA с формой */}
+      <ContactFormSection
+        className="bg-surface"
+        eyebrow="Заявка"
+        title="Рассчитайте стоимость для вашего объекта"
+        description="Отправьте параметры — подберём оптимальную форму поставки и подготовим коммерческое предложение."
+      />
     </>
   );
 }
