@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Droplets, Layers, ShieldCheck } from 'lucide-react';
+import { ContactFormSection } from '@/components/ContactFormSection';
 import { ImagePlaceholder } from '@/components/ImagePlaceholder';
 import { Reveal, Section } from '@/components/Section';
 
@@ -123,6 +124,8 @@ function ProductPage() {
           </div>
         </Reveal>
       </Section>
+
+      <ContactFormSection className="bg-surface" title="Запросить технические данные и расчёт" />
     </>
   );
 }

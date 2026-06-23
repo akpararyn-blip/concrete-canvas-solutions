@@ -9,17 +9,30 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ProductRouteImport } from './routes/product'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as InstallationRouteImport } from './routes/installation'
 import { Route as DeliveryRouteImport } from './routes/delivery'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductRoute = ProductRouteImport.update({
   id: '/product',
   path: '/product',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InstallationRoute = InstallationRouteImport.update({
@@ -30,6 +43,11 @@ const InstallationRoute = InstallationRouteImport.update({
 const DeliveryRoute = DeliveryRouteImport.update({
   id: '/delivery',
   path: '/delivery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactsRoute = ContactsRouteImport.update({
@@ -58,18 +76,24 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/applications': typeof ApplicationsRoute
   '/contacts': typeof ContactsRoute
+  '/cookies': typeof CookiesRoute
   '/delivery': typeof DeliveryRoute
   '/installation': typeof InstallationRoute
+  '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
+  '/terms': typeof TermsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/applications': typeof ApplicationsRoute
   '/contacts': typeof ContactsRoute
+  '/cookies': typeof CookiesRoute
   '/delivery': typeof DeliveryRoute
   '/installation': typeof InstallationRoute
+  '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
+  '/terms': typeof TermsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,9 +101,12 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/applications': typeof ApplicationsRoute
   '/contacts': typeof ContactsRoute
+  '/cookies': typeof CookiesRoute
   '/delivery': typeof DeliveryRoute
   '/installation': typeof InstallationRoute
+  '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
+  '/terms': typeof TermsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -88,27 +115,36 @@ export interface FileRouteTypes {
     | '/about'
     | '/applications'
     | '/contacts'
+    | '/cookies'
     | '/delivery'
     | '/installation'
+    | '/privacy'
     | '/product'
+    | '/terms'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/applications'
     | '/contacts'
+    | '/cookies'
     | '/delivery'
     | '/installation'
+    | '/privacy'
     | '/product'
+    | '/terms'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/applications'
     | '/contacts'
+    | '/cookies'
     | '/delivery'
     | '/installation'
+    | '/privacy'
     | '/product'
+    | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,18 +152,35 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ApplicationsRoute: typeof ApplicationsRoute
   ContactsRoute: typeof ContactsRoute
+  CookiesRoute: typeof CookiesRoute
   DeliveryRoute: typeof DeliveryRoute
   InstallationRoute: typeof InstallationRoute
+  PrivacyRoute: typeof PrivacyRoute
   ProductRoute: typeof ProductRoute
+  TermsRoute: typeof TermsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product': {
       id: '/product'
       path: '/product'
       fullPath: '/product'
       preLoaderRoute: typeof ProductRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/installation': {
@@ -142,6 +195,13 @@ declare module '@tanstack/react-router' {
       path: '/delivery'
       fullPath: '/delivery'
       preLoaderRoute: typeof DeliveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacts': {
@@ -180,9 +240,12 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ApplicationsRoute: ApplicationsRoute,
   ContactsRoute: ContactsRoute,
+  CookiesRoute: CookiesRoute,
   DeliveryRoute: DeliveryRoute,
   InstallationRoute: InstallationRoute,
+  PrivacyRoute: PrivacyRoute,
   ProductRoute: ProductRoute,
+  TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

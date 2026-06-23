@@ -6,10 +6,16 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// SSG-конфигурация: prerender всех маршрутов и статический preset для shared-хостинга.
+// Внутри Lovable preset форсится в cloudflare (preview работает); локальный `bun run build`
+// даёт чистую статику в `.output/public/`.
 export default defineConfig({
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
+    pages: [
+      { path: "/", prerender: { enabled: true, crawlLinks: true } },
+    ],
+  },
+  nitro: {
+    preset: "static",
   },
 });
