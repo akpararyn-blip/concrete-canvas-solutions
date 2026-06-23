@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { ContactFormSection } from '@/components/ContactFormSection';
 import { ImagePlaceholder } from '@/components/ImagePlaceholder';
 import { Reveal, Section } from '@/components/Section';
 
