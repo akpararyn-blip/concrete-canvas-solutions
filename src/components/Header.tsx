@@ -1,7 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Menu, Phone, X } from 'lucide-react';
 import { useState } from 'react';
-import logo from '@/assets/logo.png.asset.json';
 import { NAV, SITE } from '@/lib/site';
 
 export function Header() {
@@ -10,12 +9,8 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
         <Link to="/" className="flex shrink-0 items-center gap-3 transition hover:opacity-80">
-          <img src={logo.url} alt="ЗЭМ Электровибромашина" className="h-10 w-auto lg:h-12" />
-          <span className="hidden text-xs leading-tight text-muted-foreground sm:block">
-            ООО ЗЭМ
-            <br />
-            «Электровибромашина»
-          </span>
+          <img src="/logo.png" alt="ЗЭМ Электровибромашина" className="h-10 w-auto lg:h-12" />
+          
         </Link>
 
         <nav className="hidden items-center gap-1 xl:flex">
