@@ -69,21 +69,21 @@
 
   --border: oklch(0.92 0.01 250);
   --input: oklch(0.92 0.01 250);
-  --ring: oklch(0.65 0.18 45);
+  --ring: oklch(46.584% 0.1148 245.202);
 
   /* Brand — индустриальный оранжевый + графит */
-  --brand: oklch(0.68 0.18 48);
+  --brand: oklch(0.387 0.093 244.5);
   --brand-foreground: oklch(0.99 0 0);
-  --brand-soft: oklch(0.96 0.04 60);
-  --brand-dark: oklch(0.55 0.18 40);
+  --brand-soft: oklch(0.960 0.025 232.0);
+  --brand-dark: oklch(30.718% 0.06065 240.432);
 
   --surface: oklch(0.985 0.005 250);
   --surface-2: oklch(0.965 0.008 250);
 
-  --gradient-brand: linear-gradient(135deg, oklch(0.68 0.18 48), oklch(0.6 0.2 35));
+  --gradient-brand: linear-gradient(135deg, oklch(0.387 0.093 244.5), oklch(52.828% 0.12412 243.875));
   --gradient-dark: linear-gradient(135deg, oklch(0.22 0.04 255), oklch(0.3 0.04 250));
   --shadow-soft: 0 4px 20px -8px oklch(0.22 0.04 255 / 0.15);
-  --shadow-brand: 0 10px 30px -12px oklch(0.68 0.18 48 / 0.4);
+  --shadow-brand: 0 10px 30px -12px oklch(0.387 0.093 244.5 / 0.4);
 }
 
 @layer base {

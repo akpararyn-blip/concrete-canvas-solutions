@@ -68,7 +68,7 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-white/55 sm:flex-row lg:px-6">
-          <span>© {new Date().getFullYear()} {SITE.requisites.shortName}. Все права защищены.</span>
+          <span>© 2020 {SITE.requisites.shortName}. Все права защищены.</span>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
             <Link to="/terms" className="hover:text-white">
               Пользовательское соглашение

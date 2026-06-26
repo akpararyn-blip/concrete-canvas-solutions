@@ -63,13 +63,13 @@ function HomePage() {
           className="pointer-events-none absolute inset-0 opacity-40"
           style={{
             background:
-              'radial-gradient(60% 60% at 80% 10%, oklch(0.68 0.18 48 / 0.18), transparent), radial-gradient(50% 50% at 10% 100%, oklch(0.22 0.04 255 / 0.08), transparent)',
+              'radial-gradient(60% 60% at 80% 10%, oklch(0.69 0.15 217 / 0.18), transparent), radial-gradient(50% 50% at 10% 100%, oklch(0.22 0.04 255 / 0.08), transparent)',
           }}
         />
         <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 lg:grid-cols-2 lg:gap-8 lg:px-6 lg:py-24">
           <Reveal className="flex flex-col justify-center">
             <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-brand/30 bg-brand-soft px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-dark">
-              <span className="h-2 w-2 rounded-full bg-brand" /> Производитель · {SITE.addressShort}
+              <span className="h-2 w-2 rounded-full bg-brand" /> Завод по производству и поставке в России
             </div>
             <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               Бетонное полотно —
