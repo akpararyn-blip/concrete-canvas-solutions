@@ -58,9 +58,10 @@ function ProductPage() {
       >
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
-            <ImagePlaceholder
-              label="Структура бетонного полотна в разрезе"
-              aspect="aspect-[5/4]"
+            <img
+              src="/images/structure.png"
+              alt="Структура бетонного полотна в разрезе"
+              className="w-full object-contain rounded-2xl shadow-2xl"
             />
           </Reveal>
           <Reveal>

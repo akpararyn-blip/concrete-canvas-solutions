@@ -16,6 +16,7 @@ import { Route as InstallationRouteImport } from './routes/installation'
 import { Route as DeliveryRouteImport } from './routes/delivery'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -55,6 +56,11 @@ const ContactsRoute = ContactsRouteImport.update({
   path: '/contacts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalculatorRoute = CalculatorRouteImport.update({
+  id: '/calculator',
+  path: '/calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApplicationsRoute = ApplicationsRouteImport.update({
   id: '/applications',
   path: '/applications',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/applications': typeof ApplicationsRoute
+  '/calculator': typeof CalculatorRoute
   '/contacts': typeof ContactsRoute
   '/cookies': typeof CookiesRoute
   '/delivery': typeof DeliveryRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/applications': typeof ApplicationsRoute
+  '/calculator': typeof CalculatorRoute
   '/contacts': typeof ContactsRoute
   '/cookies': typeof CookiesRoute
   '/delivery': typeof DeliveryRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/applications': typeof ApplicationsRoute
+  '/calculator': typeof CalculatorRoute
   '/contacts': typeof ContactsRoute
   '/cookies': typeof CookiesRoute
   '/delivery': typeof DeliveryRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/applications'
+    | '/calculator'
     | '/contacts'
     | '/cookies'
     | '/delivery'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/applications'
+    | '/calculator'
     | '/contacts'
     | '/cookies'
     | '/delivery'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/applications'
+    | '/calculator'
     | '/contacts'
     | '/cookies'
     | '/delivery'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ApplicationsRoute: typeof ApplicationsRoute
+  CalculatorRoute: typeof CalculatorRoute
   ContactsRoute: typeof ContactsRoute
   CookiesRoute: typeof CookiesRoute
   DeliveryRoute: typeof DeliveryRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calculator': {
+      id: '/calculator'
+      path: '/calculator'
+      fullPath: '/calculator'
+      preLoaderRoute: typeof CalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/applications': {
       id: '/applications'
       path: '/applications'
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ApplicationsRoute: ApplicationsRoute,
+  CalculatorRoute: CalculatorRoute,
   ContactsRoute: ContactsRoute,
   CookiesRoute: CookiesRoute,
   DeliveryRoute: DeliveryRoute,

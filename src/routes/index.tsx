@@ -12,6 +12,7 @@ import {
 import { ContactFormSection } from '@/components/ContactFormSection';
 import { ImagePlaceholder } from '@/components/ImagePlaceholder';
 import { Reveal, Section } from '@/components/Section';
+import { applications } from '@/data/applications';
 import { SITE } from '@/lib/site';
 
 export const Route = createFileRoute('/')({
@@ -45,14 +46,7 @@ const advantages = [
   { icon: Truck, value: '−2 миксера', label: 'один рулон вместо 34 т бетона' },
 ];
 
-const applications = [
-  'Защита склонов и откосов',
-  'Облицовка каналов и прудов',
-  'Подавление растительности',
-  'Противофильтрационные сооружения',
-  'Защитные дамбы',
-  'Ремонт бетонных конструкций',
-];
+// Use applications imported from data/applications (contains img and label fields)
 
 function HomePage() {
   return (
@@ -112,10 +106,10 @@ function HomePage() {
           </Reveal>
 
           <Reveal className="relative">
-            <ImagePlaceholder
-              label="Рулон бетонного полотна на объекте"
-              aspect="aspect-[4/5] lg:aspect-square"
-              className="shadow-2xl"
+           <img
+              src="/images/hero-main.jpg"
+              alt="Рулон бетонного полотна на объекте"
+              className="aspect-[4/5] lg:aspect-square w-full rounded-2xl object-cover shadow-2xl"
             />
             <div className="absolute -bottom-6 -left-6 hidden rounded-2xl border border-border bg-background p-5 shadow-xl sm:block">
               <div className="flex items-center gap-3">
@@ -163,15 +157,19 @@ function HomePage() {
         description="От укрепления береговых линий до ремонта инженерных сооружений — материал решает задачи, где обычный бетон слишком долог или невозможен."
       >
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {applications.map((app, i) => (
-            <Reveal key={app} style={{ transitionDelay: `${i * 50}ms` } as React.CSSProperties}>
+          {applications.slice(0, 6).map((app, i) => (
+            <Reveal key={app.label} style={{ transitionDelay: `${i * 50}ms` } as React.CSSProperties}>
               <Link
                 to="/applications"
                 className="group block overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg"
               >
-                <ImagePlaceholder label={app} aspect="aspect-[16/10]" className="rounded-none border-0" />
+                <img
+                  src={app.img}
+                  alt={app.label}
+                  className="aspect-[16/10] w-full object-cover"
+                />
                 <div className="flex items-center justify-between p-5">
-                  <span className="font-display text-lg font-bold text-foreground">{app}</span>
+                  <span className="font-display text-lg font-bold text-foreground">{app.label}</span>
                   <ArrowRight className="h-5 w-5 text-brand transition group-hover:translate-x-1" />
                 </div>
               </Link>
