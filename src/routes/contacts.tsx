@@ -21,6 +21,45 @@ export const Route = createFileRoute('/contacts')({
   component: ContactsPage,
 });
 
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': 'https://xn--90aiayiacdcbbbi0bj.xn--p1acf/#organization',
+  name: 'ООО ЗЭМ «Электровибромашина»',
+  description:
+    'Производство и продажа бетонного полотна (ГЦКМ / Concrete Canvas). Поставки по России и СНГ.',
+  url: 'https://xn--90aiayiacdcbbbi0bj.xn--p1acf/#organization',
+  telephone: '+78632963631',
+  email: 'zemEVM@inbox.ru',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'ул. Буденновская, д. 277, этаж 2, комната 31',
+    addressLocality: 'Новочеркасск',
+    addressRegion: 'Ростовская область',
+    postalCode: '346421',
+    addressCountry: 'RU',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '47.412222',
+    longitude: '40.106667',
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+      closes: '18:00',
+    },
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+78632963631',
+    contactType: 'sales',
+    availableLanguage: 'Russian',
+  },
+};
+
 function ContactsPage() {
   const items = [
     { icon: Phone, label: 'Основной телефон', value: SITE.phonePrimary, href: SITE.phonePrimaryHref },
@@ -32,6 +71,12 @@ function ContactsPage() {
 
   return (
     <>
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
+
       <Section
         eyebrow="Контакты"
         title="Свяжитесь с нами"

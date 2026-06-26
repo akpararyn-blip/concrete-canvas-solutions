@@ -1,9 +1,6 @@
 <?php
-// handler.php — сгенерирован при сборке сайта. Не редактируйте вручную.
-// Принимает POST с JSON { name, phone, details } и отправляет:
-//   1) письмо через PHPMailer на email_1 и email_2 из ../config.php
-//   2) сообщение в Telegram (telegram_token + telegram_chat_id)
-// config.php лежит на один уровень выше public_html и недоступен из интернета.
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -29,112 +26,76 @@ if (!file_exists($configFile)) {
 }
 require $configFile;
 
+require __DIR__ . '/../PHPMailer/Exception.php';
+require __DIR__ . '/../PHPMailer/PHPMailer.php';
+require __DIR__ . '/../PHPMailer/SMTP.php';
+
 $rawData = file_get_contents('php://input');
-$data = json_decode($rawData, true);
+$data    = json_decode($rawData, true);
 
-if (!$data || !isset($data['name']) || !isset($data['phone'])) {
+if (!$data) {
     http_response_code(400);
-    echo json_encode(['error' => 'Invalid data']);
+    echo json_encode(['error' => 'No data received']);
     exit();
 }
 
-// Минимальная валидация и обрезка
-$name    = mb_substr(trim((string)$data['name']), 0, 100);
-$phone   = mb_substr(trim((string)$data['phone']), 0, 30);
-$details = isset($data['details']) ? mb_substr(trim((string)$data['details']), 0, 2000) : '';
+$name    = trim($data['name'] ?? '');
+$phone   = trim($data['phone'] ?? '');
+$details = trim($data['details'] ?? '');
 
-if ($name === '' || $phone === '') {
-    http_response_code(400);
-    echo json_encode(['error' => 'Empty fields']);
+if (strlen($name) < 2 || strlen($phone) < 10) {
+    http_response_code(422);
+    echo json_encode(['error' => 'Validation failed']);
     exit();
 }
 
-$mailSent = false;
-$mailError = null;
-$tgSent = false;
-$tgError = null;
+$mail = new PHPMailer(true);
 
-// --- EMAIL через PHPMailer ---
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+try {
+    $mail->isSMTP();
+    $mail->Host       = $config['smtp_host'];
+    $mail->SMTPAuth   = true;
+    $mail->Username   = $config['smtp_user'];
+    $mail->Password   = $config['smtp_pass'];
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port       = $config['smtp_port'];
+    $mail->CharSet    = 'UTF-8';
 
-$mailerLoaded = true;
-foreach (['Exception.php', 'PHPMailer.php', 'SMTP.php'] as $f) {
-    $p = __DIR__ . '/../PHPMailer/' . $f;
-    if (!file_exists($p)) { $mailerLoaded = false; break; }
-    require_once $p;
-}
-
-if ($mailerLoaded) {
-    $mail = new PHPMailer(true);
-    try {
-        $mail->isSMTP();
-        $mail->Host       = $config['smtp_host'];
-        $mail->SMTPAuth   = true;
-        $mail->Username   = $config['smtp_user'];
-        $mail->Password   = $config['smtp_pass'];
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port       = $config['smtp_port'];
-        $mail->CharSet    = 'UTF-8';
-
-        $fromAddr = !empty($config['email_from']) ? $config['email_from'] : $config['smtp_user'];
-        $mail->setFrom($fromAddr, 'Заявка с сайта');
-
-        if (!empty($config['email_1'])) $mail->addAddress($config['email_1']);
-        if (!empty($config['email_2'])) $mail->addAddress($config['email_2']);
-
-        $mail->isHTML(true);
-        $mail->Subject = 'Новая заявка с сайта';
-        $mail->Body    = "<b>Имя:</b> " . htmlspecialchars($name) . "<br>" .
-                         "<b>Телефон:</b> " . htmlspecialchars($phone) . "<br><br>" .
-                         "<b>Детали:</b><br>" . nl2br(htmlspecialchars($details));
-
-        $mail->send();
-        $mailSent = true;
-    } catch (Exception $e) {
-        $mailError = $mail->ErrorInfo;
+    $mail->setFrom($config['email_from'], 'Заявка с сайта — Бетонное полотно');
+    $mail->addAddress($config['email_1']);
+    if (!empty($config['email_2'])) {
+        $mail->addAddress($config['email_2']);
     }
-} else {
-    $mailError = 'PHPMailer library not found';
-}
 
-// --- TELEGRAM ---
-if (!empty($config['telegram_token']) && !empty($config['telegram_chat_id'])) {
-    $text = "🔔 Новая заявка\n" .
-            "Имя: {$name}\n" .
-            "Телефон: {$phone}\n" .
-            ($details !== '' ? "Детали: {$details}\n" : '');
+    $mail->isHTML(true);
+    $mail->Subject = 'Новая заявка с сайта';
+    $mail->Body    =
+        '<div style="font-family:Arial,sans-serif;font-size:15px;color:#111;">'
+        . '<h2 style="color:#1e3a5f;">Новая заявка с сайта</h2>'
+        . '<p><b>Имя:</b> ' . htmlspecialchars($name) . '</p>'
+        . '<p><b>Телефон:</b> <a href="tel:' . htmlspecialchars($phone) . '">'
+        . htmlspecialchars($phone) . '</a></p>'
+        . (!empty($details)
+            ? '<p><b>Детали:</b><br>' . nl2br(htmlspecialchars($details)) . '</p>'
+            : '')
+        . '<hr style="border:none;border-top:1px solid #eee;margin:20px 0;">'
+        . '<p style="color:#999;font-size:12px;">Письмо отправлено автоматически с сайта</p>'
+        . '</div>';
 
-    $tgUrl = "https://api.telegram.org/bot{$config['telegram_token']}/sendMessage";
-    $ch = curl_init($tgUrl);
-    curl_setopt_array($ch, [
-        CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => http_build_query([
-            'chat_id' => $config['telegram_chat_id'],
-            'text'    => $text,
-        ]),
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT        => 10,
-        CURLOPT_SSL_VERIFYPEER => true,
+    $mail->AltBody =
+        "Новая заявка с сайта\n\n"
+        . "Имя: $name\n"
+        . "Телефон: $phone\n"
+        . (!empty($details) ? "Детали: $details\n" : '');
+
+    $mail->send();
+
+    echo json_encode(['success' => true]);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        'success'    => false,
+        'mail_error' => $mail->ErrorInfo,
     ]);
-    $resp = curl_exec($ch);
-    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    if ($resp !== false && $code === 200) {
-        $tgSent = true;
-    } else {
-        $tgError = 'Telegram HTTP ' . $code;
-    }
-    curl_close($ch);
 }
-
-// Успех, если сработал хотя бы один канал
-$success = $mailSent || $tgSent;
-if (!$success) http_response_code(500);
-
-echo json_encode([
-    'success'    => $success,
-    'mail_sent'  => $mailSent,
-    'mail_error' => $mailError,
-    'tg_sent'    => $tgSent,
-    'tg_error'   => $tgError,
-]);

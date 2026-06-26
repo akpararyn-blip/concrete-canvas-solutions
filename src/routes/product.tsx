@@ -92,6 +92,38 @@ const afterHydration = [
   { param: 'Срок службы', unit: 'лет', sst1: '120', sst2: '120', sst3: '120' },
 ];
 
+const productJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Бетонное полотно ГЦКМ (Concrete Canvas)',
+  description:
+    'Гибкий геосинтетический цементно-композитный мат. Раскатывается, поливается водой и через 24 часа набирает 80% прочности обычного бетона.',
+  brand: {
+    '@type': 'Brand',
+    name: 'Concrete Canvas',
+  },
+  manufacturer: {
+    '@type': 'Organization',
+    name: 'ООО ЗЭМ «Электровибромашина»',
+  },
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    priceCurrency: 'RUB',
+    seller: {
+      '@type': 'Organization',
+      name: 'ООО ЗЭМ «Электровибромашина»',
+    },
+  },
+  additionalProperty: [
+    { '@type': 'PropertyValue', name: 'Срок службы', value: '120 лет' },
+    { '@type': 'PropertyValue', name: 'Набор прочности', value: '80% за 24 часа' },
+    { '@type': 'PropertyValue', name: 'Морозостойкость', value: '200+ циклов' },
+    { '@type': 'PropertyValue', name: 'Скорость укладки', value: 'до 200 м²/час' },
+    { '@type': 'PropertyValue', name: 'Снижение CO₂', value: '62%' },
+  ],
+};
+
 function SpecTable({ title, rows, highlight }: {
   title: string;
   rows: { param: string; unit: string; sst1: string; sst2: string; sst3: string }[];
@@ -149,6 +181,12 @@ function SpecTable({ title, rows, highlight }: {
 function ProductPage() {
   return (
     <>
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+
       {/* Что это такое */}
       <Section
         eyebrow="О продукте"
@@ -175,7 +213,6 @@ function ProductPage() {
                 водонепроницаемый слой бетона заданной формы. Переувлажнить материал невозможно.
               </p>
 
-              {/* Ключевые цифры */}
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { value: '200 м²/час', label: 'скорость укладки' },
@@ -234,12 +271,10 @@ function ProductPage() {
                     Популярный
                   </div>
                 )}
-
                 <div className="mb-6">
                   <div className="font-display text-3xl font-extrabold text-foreground">{t.name}</div>
                   <div className="mt-1 text-sm font-semibold text-brand">{t.gccm}</div>
                 </div>
-
                 <div className="grid grid-cols-3 gap-3 mb-6">
                   <div className="rounded-xl bg-surface p-3 text-center">
                     <div className="font-display text-xl font-extrabold text-brand whitespace-nowrap">{t.thickness}</div>
@@ -254,7 +289,6 @@ function ProductPage() {
                     <div className="mt-0.5 text-xs text-muted-foreground">прочность</div>
                   </div>
                 </div>
-
                 <div className="space-y-2 mb-6 flex-1">
                   <div className="flex justify-between text-sm border-b border-border pb-2">
                     <span className="text-muted-foreground">Компактный рулон</span>
@@ -265,7 +299,6 @@ function ProductPage() {
                     <span className="font-semibold text-foreground text-right">{t.bigRoll}</span>
                   </div>
                 </div>
-
                 <div className="rounded-xl bg-brand-soft border border-brand/20 p-3">
                   <div className="text-xs font-semibold text-brand-dark">Применение:</div>
                   <div className="mt-0.5 text-xs text-muted-foreground">{t.best}</div>
@@ -290,7 +323,6 @@ function ProductPage() {
           </div>
         </Reveal>
 
-        {/* Маркетинговые выводы из таблиц */}
         <Reveal>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {[
