@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2, Send } from 'lucide-react';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
 
@@ -24,14 +24,77 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 interface ContactFormProps {
-  /** Показывать textarea с дополнительными деталями. По умолчанию true. */
   withDetails?: boolean;
+}
+
+function formatPhone(value: string): string {
+  const digits = value.replace(/\D/g, '');
+
+  if (!digits) return '';
+
+  // Беларусь: 375
+  if (digits.startsWith('375')) {
+    let r = '+375';
+    if (digits.length > 3) r += ' (' + digits.slice(3, 5);
+    if (digits.length >= 5) r += ')';
+    if (digits.length > 5) r += ' ' + digits.slice(5, 8);
+    if (digits.length > 8) r += '-' + digits.slice(8, 10);
+    if (digits.length > 10) r += '-' + digits.slice(10, 12);
+    return r;
+  }
+
+  // Украина: 380
+  if (digits.startsWith('380')) {
+    let r = '+380';
+    if (digits.length > 3) r += ' (' + digits.slice(3, 5);
+    if (digits.length >= 5) r += ')';
+    if (digits.length > 5) r += ' ' + digits.slice(5, 8);
+    if (digits.length > 8) r += '-' + digits.slice(8, 10);
+    if (digits.length > 10) r += '-' + digits.slice(10, 12);
+    return r;
+  }
+
+  // Узбекистан: 998
+  if (digits.startsWith('998')) {
+    let r = '+998';
+    if (digits.length > 3) r += ' (' + digits.slice(3, 5);
+    if (digits.length >= 5) r += ')';
+    if (digits.length > 5) r += ' ' + digits.slice(5, 8);
+    if (digits.length > 8) r += '-' + digits.slice(8, 10);
+    if (digits.length > 10) r += '-' + digits.slice(10, 12);
+    return r;
+  }
+
+  // Азербайджан: 994
+  if (digits.startsWith('994')) {
+    let r = '+994';
+    if (digits.length > 3) r += ' (' + digits.slice(3, 5);
+    if (digits.length >= 5) r += ')';
+    if (digits.length > 5) r += ' ' + digits.slice(5, 8);
+    if (digits.length > 8) r += '-' + digits.slice(8, 10);
+    if (digits.length > 10) r += '-' + digits.slice(10, 12);
+    return r;
+  }
+
+  // Россия / Казахстан: 7, 8 или любые другие цифры → считаем +7
+  const d = digits.startsWith('7') || digits.startsWith('8')
+    ? '7' + digits.slice(1)
+    : '7' + digits;
+
+  let r = '+7';
+  if (d.length > 1) r += ' (' + d.slice(1, 4);
+  if (d.length >= 4) r += ')';
+  if (d.length > 4) r += ' ' + d.slice(4, 7);
+  if (d.length > 7) r += '-' + d.slice(7, 9);
+  if (d.length > 9) r += '-' + d.slice(9, 11);
+  return r;
 }
 
 export function ContactForm({ withDetails = true }: ContactFormProps) {
   const [submitting, setSubmitting] = useState(false);
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors },
@@ -87,11 +150,18 @@ export function ContactForm({ withDetails = true }: ContactFormProps) {
 
       <div>
         <label className="mb-1.5 block text-sm font-semibold text-foreground">Телефон</label>
-        <input
-          {...register('phone')}
-          type="tel"
-          placeholder="+7 (___) ___-__-__"
-          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
+        <Controller
+          name="phone"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              type="tel"
+              placeholder="+7 (___) ___-__-__"
+              onChange={(e) => field.onChange(formatPhone(e.target.value))}
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
+            />
+          )}
         />
         {errors.phone && <p className="mt-1 text-xs text-destructive">{errors.phone.message}</p>}
       </div>
@@ -99,7 +169,8 @@ export function ContactForm({ withDetails = true }: ContactFormProps) {
       {withDetails && (
         <div>
           <label className="mb-1.5 block text-sm font-semibold text-foreground">
-            Детали заявки <span className="font-normal text-muted-foreground">(необязательно)</span>
+            Детали заявки{' '}
+            <span className="font-normal text-muted-foreground">(необязательно)</span>
           </label>
           <textarea
             {...register('details')}

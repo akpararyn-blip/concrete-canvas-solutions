@@ -25,6 +25,7 @@ const forms = [
     name: 'Компактные рулоны',
     img: '/images/compact.png',
     tagline: 'Для ручного монтажа',
+    accent: false,
     bullets: [
       'Переносятся 1–2 рабочими вручную',
       'Оптимальны для труднодоступных мест',
@@ -37,10 +38,24 @@ const forms = [
     ],
   },
   {
+    name: 'Широкие рулоны',
+    img: '/images/wide.png',
+    tagline: 'Максимальная ширина покрытия',
+    bullets: [
+      'Ширина 1.95 м — минимум продольных швов',
+      'Длина 50 м — быстрое покрытие без стыков',
+      'Монтаж с помощью экскаватора и траверсы',
+    ],
+    specs: [
+      { type: 'ССТ1™', thickness: '5 мм', weight: '8 кг/м²', area: '97.5 м²', length: '50 м' },
+      { type: 'ССТ2™', thickness: '7 мм', weight: '12 кг/м²', area: '97.5 м²', length: '50 м' },
+      { type: 'ССТ3™', thickness: '11 мм', weight: '19 кг/м²', area: '97.5 м²', length: '50 м' },
+    ],
+  },
+  {
     name: 'Большие рулоны',
     img: '/images/big.png',
     tagline: 'Для промышленной укладки',
-    accent: true,
     bullets: [
       'Монтаж с помощью экскаватора и траверсы',
       'Подходят для открытых промышленных площадок',
@@ -63,11 +78,11 @@ function DeliveryPage() {
         title="Два формата под задачи объекта"
         description="Бетонное полотно поставляется в компактных и больших рулонах. В каждом формате доступны три типа полотна — ССТ1™, ССТ2™ и ССТ3™ — отличающиеся толщиной и площадью покрытия."
       >
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-6 lg:grid-cols-3">
           {forms.map((f, i) => (
             <Reveal key={f.name} style={{ transitionDelay: `${i * 80}ms` } as React.CSSProperties}>
               <div
-                className={`relative h-full overflow-hidden rounded-3xl border bg-card transition hover:-translate-y-1 hover:shadow-xl ${
+                className={`relative flex flex-col h-full overflow-hidden rounded-3xl border bg-card transition hover:-translate-y-1 hover:shadow-xl ${
                   f.accent ? 'border-brand shadow-lg' : 'border-border'
                 }`}
               >
@@ -81,11 +96,11 @@ function DeliveryPage() {
                   alt={f.name}
                   className="aspect-[16/9] w-full object-contain border-b border-border p-4"
                 />
-                <div className="p-7">
+                <div className="flex flex-col flex-1 p-7">
                   <h3 className="font-display text-2xl font-extrabold">{f.name}</h3>
                   <div className="mt-1.5 text-sm font-semibold text-brand">{f.tagline}</div>
 
-                  <ul className="mt-5 space-y-2.5">
+                  <ul className="mt-5 space-y-2.5 flex-1">
                     {f.bullets.map((b) => (
                       <li key={b} className="flex gap-2 text-sm text-muted-foreground">
                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
@@ -99,8 +114,6 @@ function DeliveryPage() {
                       <thead>
                         <tr className="bg-surface-2 text-foreground">
                           <th className="px-3 py-2.5 text-left font-bold">Тип</th>
-                          <th className="px-3 py-2.5 text-center font-bold">Толщина</th>
-                          <th className="px-3 py-2.5 text-center font-bold">Вес</th>
                           <th className="px-3 py-2.5 text-center font-bold">Площадь</th>
                           <th className="px-3 py-2.5 text-center font-bold">Длина</th>
                         </tr>
@@ -113,10 +126,11 @@ function DeliveryPage() {
                               idx % 2 === 0 ? 'bg-background' : 'bg-surface'
                             }`}
                           >
-                            <td className="px-3 py-2.5 font-bold text-brand-dark">{s.type}</td>
-                            <td className="px-3 py-2.5 text-center text-muted-foreground">{s.thickness}</td>
-                            <td className="px-3 py-2.5 text-center text-muted-foreground">{s.weight}</td>
-                            <td className="px-3 py-2.5 text-center text-muted-foreground">{s.area}</td>
+                            <td className="px-3 py-2.5">
+                              <div className="font-bold text-brand-dark">{s.type}</div>
+                              <div className="text-xs text-muted-foreground">{s.thickness} · {s.weight}</div>
+                            </td>
+                            <td className="px-3 py-2.5 text-center font-semibold text-foreground">{s.area}</td>
                             <td className="px-3 py-2.5 text-center text-muted-foreground">{s.length}</td>
                           </tr>
                         ))}

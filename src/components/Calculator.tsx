@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight, AlertTriangle, Package, Weight, Truck } from 'lucide-react';
 
-type Format = 'compact' | 'big';
+type Format = 'compact' | 'big' | 'wide';
 type SSTType = 'sst1' | 'sst2' | 'sst3';
 
 const data: Record<Format, Record<SSTType, { area: number | null; weightPerM2: number; thickness: string }>> = {
@@ -10,6 +10,11 @@ const data: Record<Format, Record<SSTType, { area: number | null; weightPerM2: n
     sst1: { area: 10,   weightPerM2: 8,  thickness: '5 мм' },
     sst2: { area: 5,    weightPerM2: 12, thickness: '7 мм' },
     sst3: { area: null, weightPerM2: 19, thickness: '11 мм' },
+  },
+  wide: {
+    sst1: { area: 97.5, weightPerM2: 8,  thickness: '5 мм' },
+    sst2: { area: 97.5, weightPerM2: 12, thickness: '7 мм' },
+    sst3: { area: 97.5, weightPerM2: 19, thickness: '11 мм' },
   },
   big: {
     sst1: { area: 170, weightPerM2: 8,  thickness: '5 мм' },
@@ -20,6 +25,7 @@ const data: Record<Format, Record<SSTType, { area: number | null; weightPerM2: n
 
 const formatLabels: Record<Format, string> = {
   compact: 'Компактные',
+  wide: 'Широкие',
   big: 'Большие',
 };
 

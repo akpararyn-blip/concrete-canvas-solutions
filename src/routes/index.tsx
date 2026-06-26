@@ -4,13 +4,13 @@ import {
   Calendar,
   CheckCircle2,
   CloudRain,
+  Leaf,
   Snowflake,
-  Truck,
   Wrench,
   Zap,
 } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import { ContactFormSection } from '@/components/ContactFormSection';
-import { ImagePlaceholder } from '@/components/ImagePlaceholder';
 import { Reveal, Section } from '@/components/Section';
 import { applications } from '@/data/applications';
 import { SITE } from '@/lib/site';
@@ -38,17 +38,39 @@ export const Route = createFileRoute('/')({
 });
 
 const advantages = [
-  { icon: Zap, value: '10×', label: 'быстрее обычной заливки бетона' },
-  { icon: Calendar, value: '24 ч', label: 'набор 80% прочности' },
-  { icon: Wrench, value: '120 лет', label: 'расчётный срок службы' },
-  { icon: Snowflake, value: '300+', label: 'циклов замораживания/оттаивания' },
-  { icon: CloudRain, value: 'Любая', label: 'погода для монтажа, даже в воду' },
-  { icon: Truck, value: '−2 миксера', label: 'один рулон вместо 34 т бетона' },
+  { icon: Zap,       value: '10×',     label: 'быстрее обычной заливки бетона' },
+  { icon: Calendar,  value: '24 ч',    label: 'набор 80% прочности' },
+  { icon: Wrench,    value: '120 лет', label: 'расчётный срок службы' },
+  { icon: Snowflake, value: '200+',    label: 'циклов замораживания/оттаивания' },
+  { icon: CloudRain, value: 'Любая',   label: 'погода для монтажа, даже под водой' },
+  { icon: Leaf,      value: '−60%',    label: 'выбросов CO₂ vs обычного бетона' },
 ];
 
-// Use applications imported from data/applications (contains img and label fields)
-
 function HomePage() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const interval = setInterval(() => {
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (el.scrollLeft >= maxScroll - 10) {
+        el.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        el.scrollBy({ left: 196, behavior: 'smooth' });
+      }
+    }, 2500);
+
+    const pause = () => clearInterval(interval);
+    el.addEventListener('touchstart', pause, { passive: true });
+
+    return () => {
+      clearInterval(interval);
+      el.removeEventListener('touchstart', pause);
+    };
+  }, []);
+
   return (
     <>
       {/* HERO */}
@@ -106,7 +128,7 @@ function HomePage() {
           </Reveal>
 
           <Reveal className="relative">
-           <img
+            <img
               src="/images/hero-main.jpg"
               alt="Рулон бетонного полотна на объекте"
               className="aspect-[4/5] lg:aspect-square w-full rounded-2xl object-cover shadow-2xl"
@@ -132,7 +154,8 @@ function HomePage() {
         title="Бетон без опалубки, миксеров и сложной техники"
         description="ГЦКМ объединяет преимущества бетона и геосинтетики — прочность, гибкость и скорость укладки."
       >
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Десктоп — сетка */}
+        <div className="hidden gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-3">
           {advantages.map((a, i) => (
             <Reveal key={a.label} style={{ transitionDelay: `${i * 60}ms` } as React.CSSProperties}>
               <div className="group h-full rounded-2xl border border-border bg-card p-7 transition hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg">
@@ -147,6 +170,66 @@ function HomePage() {
             </Reveal>
           ))}
         </div>
+
+        {/* Мобилка — автоскролл */}
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto pb-3 sm:hidden snap-x snap-proximity"
+        >
+          {advantages.map((a) => (
+            <div
+              key={a.label}
+              className="snap-start shrink-0 w-44 rounded-2xl border border-border bg-card p-5"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl gradient-brand text-brand-foreground">
+                <a.icon className="h-5 w-5" />
+              </div>
+              <div className="mt-4 font-display text-2xl font-extrabold text-foreground">{a.value}</div>
+              <div className="mt-1 text-sm text-muted-foreground">{a.label}</div>
+            </div>
+          ))}
+        </div>
+        {/* CTA к странице о продукте */}
+        <Reveal>
+          <div className="mt-10 relative overflow-hidden rounded-3xl gradient-brand p-8 sm:p-10">
+            {/* Декоративные круги */}
+            <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/5" />
+            <div className="pointer-events-none absolute -bottom-12 right-32 h-40 w-40 rounded-full bg-white/5" />
+
+            <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-brand-foreground/60 mb-2">
+                  Технология
+                </div>
+                <h3 className="font-display text-2xl font-extrabold text-brand-foreground sm:text-3xl">
+                  Как бетон оказался в рулоне?
+                </h3>
+                <p className="mt-2 max-w-lg text-sm leading-relaxed text-brand-foreground/70">
+                  Три слоя, один стандарт ASTM D8364 и 120 лет срока службы —
+                  разберём состав, типы и технические характеристики.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {['45–65 МПа прочность', '−62% CO₂', '200 м²/час монтаж'].map((s) => (
+                    <span
+                      key={s}
+                      className="rounded-full border border-brand-foreground/20 bg-brand-foreground/10 px-3 py-1 text-xs font-semibold text-brand-foreground"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <Link
+                to="/product"
+                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-foreground px-6 py-3.5 text-sm font-bold text-brand transition hover:scale-[1.03] hover:bg-white"
+              >
+                О продукте
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </Reveal>
       </Section>
 
       {/* ПРИМЕНЕНИЕ */}
