@@ -491,6 +491,187 @@ function ProductPage() {
         </div>
       </Section>
 
+      {/* Линейка CCX */}
+      <Section
+        id="ccx"
+        eyebrow="Линейка CCX"
+        title="CCX — облицовка масштабных гидросооружений"
+        description="Новейшее дополнение к семейству Concrete Canvas. Разработан для защитной облицовки крупных ирригационных каналов, защитных дамб и береговых склонов. Скорость монтажа до 10 раз выше традиционных методов."
+      >
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4 mb-10">
+          {[
+            { icon: Zap, title: 'Скорость монтажа', text: 'До 200 м²/час — в 10 раз быстрее укладки традиционного бетона.' },
+            { icon: Droplets, title: 'Без потерь на фильтрацию', text: 'Пластично адаптируется к грунту, сохраняя целостность и изоляцию.' },
+            { icon: Layers, title: 'Композитное решение', text: 'Низкая проницаемость геомембраны + прочность и долговечность бетона.' },
+            { icon: Truck, title: 'Оптимальная логистика', text: '~15 кг/м² против ~220 кг/м² у 10-см слоя бетона — в 10 раз эффективнее.' },
+          ].map((f, i) => (
+            <Reveal key={f.title} style={{ transitionDelay: `${i * 80}ms` } as React.CSSProperties}>
+              <div className="h-full rounded-2xl border border-border bg-card p-5 text-center transition hover:border-brand/50">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand-dark mb-4">
+                  <f.icon className="h-6 w-6" />
+                </div>
+                <h4 className="font-display text-sm font-bold mb-2">{f.title}</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">{f.text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-2 max-w-4xl mx-auto">
+          {[
+            {
+              name: 'CCX-M™',
+              gccm: 'С геомембраной LLDPE 0.3 мм',
+              thickness: '10.3 мм',
+              weight: '14.5–15.5 кг/м²',
+              width: '1.9 м',
+              roll: '1.9 × 50 м / 95 м²',
+              best: 'Ирригационные каналы, дамбы, береговые склоны. Стыки — винты + клей-герметик + термосварка.',
+              accent: true,
+            },
+            {
+              name: 'CCX-U®',
+              gccm: 'Без геомембраны (Utility)',
+              thickness: '10.0 мм',
+              weight: '14.5–15.5 кг/м²',
+              width: '1.95 м',
+              roll: '1.95 × 50 м / 97.5 м²',
+              best: 'Облицовка профилированных склонов, защитный слой мембранного покрытия. Стыки — винты, герметик или термосварка.',
+            },
+          ].map((t, i) => (
+            <Reveal key={t.name} style={{ transitionDelay: `${i * 80}ms` } as React.CSSProperties}>
+              <div className={`relative flex flex-col h-full rounded-3xl border bg-card p-7 transition hover:-translate-y-1 hover:shadow-xl ${
+                t.accent ? 'border-brand shadow-lg' : 'border-border'
+              }`}>
+                {t.accent && (
+                  <div className="absolute right-4 top-4 rounded-full gradient-brand px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-foreground">
+                    Гидроизоляция
+                  </div>
+                )}
+                <div className="mb-6">
+                  <div className="font-display text-3xl font-extrabold text-foreground">{t.name}</div>
+                  <div className="mt-1 text-sm font-semibold text-brand">{t.gccm}</div>
+                </div>
+                <div className="grid grid-cols-3 gap-3 mb-6">
+                  <div className="rounded-xl bg-surface p-3 text-center flex flex-col justify-center">
+                    <div className="font-display text-xl font-extrabold text-brand whitespace-nowrap">{t.thickness}</div>
+                    <div className="mt-0.5 text-xs text-muted-foreground">толщина</div>
+                  </div>
+                  <div className="rounded-xl bg-surface p-3 text-center flex flex-col justify-center">
+                    <div className="font-display text-sm font-extrabold text-brand leading-tight">{t.weight}</div>
+                    <div className="mt-0.5 text-xs text-muted-foreground">масса</div>
+                  </div>
+                  <div className="rounded-xl bg-surface p-3 text-center flex flex-col justify-center">
+                    <div className="font-display text-xl font-extrabold text-brand whitespace-nowrap">{t.width}</div>
+                    <div className="mt-0.5 text-xs text-muted-foreground">ширина</div>
+                  </div>
+                </div>
+                <div className="space-y-2 mb-6 flex-1">
+                  <div className="flex justify-between items-center text-sm pt-1 pb-1 border-b border-border">
+                    <span className="text-muted-foreground">Большой рулон</span>
+                    <span className="font-semibold text-foreground text-right">{t.roll}</span>
+                  </div>
+                </div>
+                <div className="rounded-xl bg-brand-soft border border-brand/20 p-3">
+                  <div className="text-xs font-semibold text-brand-dark">Применение:</div>
+                  <div className="mt-0.5 text-xs text-muted-foreground">{t.best}</div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Линейка DEPLOY */}
+      <Section
+        id="deploy"
+        className="bg-surface"
+        eyebrow="Линейка DEPLOY"
+        title="DEPLOY — быстровозводимые резервуары"
+        description="Инновационные резервуары для жидких продуктов на основе технологии ССНТ. Сочетают прочность бетона и гибкость ткани: развёртывание за часы, монолитная конструкция после гидратации."
+      >
+        <div className="grid gap-8 lg:grid-cols-2 items-start">
+          <Reveal>
+            <div className="rounded-3xl border-2 border-brand bg-card p-8 shadow-lg">
+              <div className="inline-flex items-center rounded-full gradient-brand px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-foreground mb-4">
+                Флагман линейки
+              </div>
+              <div className="font-display text-4xl font-extrabold text-foreground">Комплект 14R</div>
+              <div className="mt-2 text-base font-semibold text-brand">
+                Быстровозводимый резервуар для воды
+              </div>
+              <div className="mt-6 grid grid-cols-3 gap-3">
+                <div className="rounded-xl bg-surface p-4 text-center">
+                  <div className="font-display text-2xl font-extrabold text-brand">14 000 л</div>
+                  <div className="mt-1 text-xs text-muted-foreground">объём</div>
+                </div>
+                <div className="rounded-xl bg-surface p-4 text-center">
+                  <div className="font-display text-2xl font-extrabold text-brand">часы</div>
+                  <div className="mt-1 text-xs text-muted-foreground">монтаж</div>
+                </div>
+                <div className="rounded-xl bg-surface p-4 text-center">
+                  <div className="font-display text-2xl font-extrabold text-brand">ССНТ</div>
+                  <div className="mt-1 text-xs text-muted-foreground">технология</div>
+                </div>
+              </div>
+              <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+                Корпус и подложка выполнены из бетонного полотна Concrete Canvas. В сложенном
+                виде занимает минимум места, после развёртывания и увлажнения превращается
+                в устойчивую монолитную конструкцию. В комплект входят инструменты и аксессуары
+                для быстрого монтажа.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="space-y-5">
+            <Reveal>
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-3">
+                  Ключевые преимущества
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {[
+                    { icon: Timer, title: 'Быстрое развёртывание', text: 'Установка за считанные часы вместо недель.' },
+                    { icon: Shield, title: 'Долговечность', text: 'Стойкость к УФ, коррозии, химии и механическим повреждениям.' },
+                    { icon: Package, title: 'Компактность', text: 'Минимум места при транспортировке в сложенном виде.' },
+                    { icon: Droplets, title: 'Герметичность', text: 'Водонепроницаемый корпус на базе Concrete Canvas.' },
+                  ].map((f) => (
+                    <div key={f.title} className="rounded-2xl border border-border bg-card p-4">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand-dark mb-3">
+                        <f.icon className="h-5 w-5" />
+                      </div>
+                      <div className="font-display text-sm font-bold">{f.title}</div>
+                      <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{f.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal>
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-brand-dark mb-3">
+                  Область применения
+                </div>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {[
+                    { icon: HeartPulse, text: 'Больницы, клиники, мобильные госпитали' },
+                    { icon: Building2, text: 'Коммунальные объекты и электростанции' },
+                    { icon: Tractor, text: 'Сельскохозяйственные угодья' },
+                    { icon: LifeBuoy, text: 'ЧС, лагеря переселенцев, школы' },
+                  ].map((a) => (
+                    <div key={a.text} className="flex items-start gap-3 rounded-xl border border-border bg-card p-3">
+                      <a.icon className="h-5 w-5 shrink-0 text-brand mt-0.5" />
+                      <span className="text-sm text-foreground">{a.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </Section>
+
       {/* Технические таблицы */}
       <Section
         className="bg-background"
