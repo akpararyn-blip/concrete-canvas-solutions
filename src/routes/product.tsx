@@ -332,12 +332,44 @@ function ProductPage() {
         </div>
       </Section>
 
+      {/* Семейство продукции */}
+      <Section
+        eyebrow="Семейство"
+        title="Четыре линейки Concrete Canvas"
+        description="Каждая линейка решает свой класс задач — от универсальной защиты грунта до быстровозводимых резервуаров."
+      >
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {family.map((f, i) => (
+            <Reveal key={f.key} style={{ transitionDelay: `${i * 70}ms` } as React.CSSProperties}>
+              <a
+                href={`#${f.key}`}
+                className="group flex h-full flex-col rounded-3xl border border-border bg-card p-6 transition hover:-translate-y-1 hover:border-brand hover:shadow-xl"
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl gradient-brand text-brand-foreground">
+                  <f.icon className="h-7 w-7" />
+                </div>
+                <div className="mt-5 font-display text-2xl font-extrabold text-foreground">
+                  {f.name}
+                </div>
+                <div className="mt-1 text-sm font-semibold text-brand">{f.tagline}</div>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground flex-1">{f.text}</p>
+                <span className="mt-4 text-xs font-semibold uppercase tracking-wider text-brand group-hover:underline">
+                  Подробнее →
+                </span>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
       {/* Типы ССТ */}
       <Section
-        eyebrow="Типоразмеры"
-        title="Три типа под любую задачу (Линейка ССТ)"
-        description="Concrete Canvas выпускается в трёх типах по классификации ASTM D8364. Чем выше тип — тем толще полотно, тяжелее и прочнее."
+        id="cct"
+        eyebrow="Линейка CCT"
+        title="CCT — универсальное решение (ССТ1™ / ССТ2™ / ССТ3™)"
+        description="Concrete Canvas выпускается в трёх типах по классификации ASTM D8364. Чем выше тип — тем толще полотно, тяжелее и прочнее. Применяется для защиты склонов, каналов и подавления растительности."
       >
+
         <div className="grid gap-6 lg:grid-cols-3">
           {types.map((t, i) => (
             <Reveal key={t.name} style={{ transitionDelay: `${i * 80}ms` } as React.CSSProperties}>
