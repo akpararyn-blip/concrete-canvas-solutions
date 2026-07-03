@@ -676,8 +676,8 @@ function ProductPage() {
       <Section
         className="bg-background"
         eyebrow="Характеристики"
-        title="Технические параметры"
-        description="Данные испытаний согласно международным стандартам ASTM и BS EN."
+        title="Технические параметры линейки CCT"
+        description="Данные испытаний ССТ1™ / ССТ2™ / ССТ3™ согласно международным стандартам ASTM и BS EN."
       >
         <Reveal>
           <div className="space-y-4">
