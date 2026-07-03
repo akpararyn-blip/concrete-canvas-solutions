@@ -15,7 +15,7 @@ export function Footer() {
         </div>
 
         <div>
-          <div className="mb-4 text-xs font-bold uppercase tracking-wider text-brand">Разделы</div>
+          <div className="mb-4 text-xs font-bold uppercase tracking-wider ">Разделы</div>
           <ul className="space-y-2 text-sm">
             {NAV.map((n) => (
               <li key={n.to}>
@@ -28,10 +28,10 @@ export function Footer() {
         </div>
 
         <div>
-          <div className="mb-4 text-xs font-bold uppercase tracking-wider text-brand">Контакты</div>
+          <div className="mb-4 text-xs font-bold uppercase tracking-wider ">Контакты</div>
           <ul className="space-y-3 text-sm">
             <li className="flex gap-2.5">
-              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+              <Phone className="mt-0.5 h-4 w-4 shrink-0 " />
               <div className="space-y-1">
                 <a href={SITE.phonePrimaryHref} className="block hover:text-white">
                   {SITE.phonePrimary}
@@ -42,22 +42,22 @@ export function Footer() {
               </div>
             </li>
             <li className="flex gap-2.5">
-              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 " />
               <a href={SITE.emailHref} className="hover:text-white">
                 {SITE.email}
               </a>
             </li>
             <li className="flex gap-2.5">
-              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+              <Clock className="mt-0.5 h-4 w-4 shrink-0 " />
               <span>{SITE.workingHours}</span>
             </li>
           </ul>
         </div>
 
         <div>
-          <div className="mb-4 text-xs font-bold uppercase tracking-wider text-brand">Адрес</div>
+          <div className="mb-4 text-xs font-bold uppercase tracking-wider ">Адрес</div>
           <div className="flex gap-2.5 text-sm">
-            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 " />
             <p className="leading-relaxed text-white/75">{SITE.address}</p>
           </div>
           <div className="mt-4 text-xs text-white/55">
