@@ -1,24 +1,80 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { CheckCircle2, Droplets, Layers, ShieldCheck, Beaker, Waves, Search, Shield } from 'lucide-react';
+import {
+  CheckCircle2,
+  Droplets,
+  Layers,
+  ShieldCheck,
+  Beaker,
+  Waves,
+  Search,
+  Shield,
+  Zap,
+  Package,
+  Container,
+  Timer,
+  Mountain,
+  FlaskConical,
+  Truck,
+  HeartPulse,
+  Tractor,
+  Building2,
+  LifeBuoy,
+} from 'lucide-react';
 import { ContactFormSection } from '@/components/ContactFormSection';
 import { Reveal, Section } from '@/components/Section';
 
 export const Route = createFileRoute('/product')({
   head: () => ({
     meta: [
-      { title: 'О продукте — Бетонное полотно (ГЦКМ / Concrete Canvas)' },
+      { title: 'Продукция — CCT, CC Hydro, CCX, DEPLOY | Бетонное полотно' },
       {
         name: 'description',
         content:
-          'Бетонное полотно — гибкий композит из полимерной сетки и сухой бетонной смеси с водонепроницаемой геомембраной. Состав, принцип работы, технические характеристики.',
+          'Полное семейство бетонного полотна Concrete Canvas: CCT — универсальное решение, CC Hydro — герметичные экраны, CCX — облицовка гидросооружений, DEPLOY — быстровозводимые резервуары.',
       },
-      { property: 'og:title', content: 'О продукте — Бетонное полотно' },
+      { property: 'og:title', content: 'Продукция — CCT, CC Hydro, CCX, DEPLOY' },
+      {
+        property: 'og:description',
+        content:
+          'Четыре линейки Concrete Canvas: универсальный CCT, герметичный CC Hydro, крупноформатный CCX и быстровозводимые резервуары DEPLOY.',
+      },
       { property: 'og:url', content: '/product' },
     ],
     links: [{ rel: 'canonical', href: '/product' }],
   }),
   component: ProductPage,
 });
+
+const family = [
+  {
+    key: 'cct',
+    name: 'CCT',
+    icon: Mountain,
+    tagline: 'Универсальное строительное решение',
+    text: 'Защита оснований и конструкций от разрушения и выветривания. Применяется на склонах, в водоотводных каналах, для подавления роста растительности.',
+  },
+  {
+    key: 'cc-hydro',
+    name: 'CC Hydro',
+    icon: FlaskConical,
+    tagline: 'Сдерживание реагентов',
+    text: 'Разработан для проектов добычи и хранения полезных ископаемых: защитные обваловки, накопители, хвостовые тоннели.',
+  },
+  {
+    key: 'ccx',
+    name: 'CCX',
+    icon: Waves,
+    tagline: 'Масштабные гидросооружения',
+    text: 'Новейшее дополнение к семейству CC. Облицовка крупных ирригационных каналов, защитных дамб и береговых склонов.',
+  },
+  {
+    key: 'deploy',
+    name: 'DEPLOY',
+    icon: Container,
+    tagline: 'Быстровозводимые резервуары',
+    text: 'Инновационные резервуары для жидких продуктов на основе технологии ССНТ. Развёртывание за считанные часы.',
+  },
+];
 
 const layers = [
   {
