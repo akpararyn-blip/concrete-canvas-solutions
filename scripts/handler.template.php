@@ -18,6 +18,55 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
+// --- Защита 1: проверка Referer ---
+$allowedDomains = [
+    'бетонноеполотно.рус',
+    'xn--90aiayiacdcbbbi0bj.xn--p1acf',
+    'localhost',
+    '127.0.0.1',
+];
+$referer = $_SERVER['HTTP_REFERER'] ?? '';
+$refererHost = parse_url($referer, PHP_URL_HOST);
+$refererAllowed = false;
+foreach ($allowedDomains as $domain) {
+    if ($refererHost === $domain || str_ends_with($refererHost, '.' . $domain)) {
+        $refererAllowed = true;
+        break;
+    }
+}
+if (!empty($referer) && !$refererAllowed) {
+    http_response_code(403);
+    echo json_encode(['error' => 'Forbidden']);
+    exit();
+}
+
+// --- Защита 2: Rate limiting по IP ---
+$ip       = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$ipHash   = md5($ip); // не храним реальный IP
+$rateFile = sys_get_temp_dir() . '/rate_' . $ipHash . '.json';
+$limit    = 5;   // максимум запросов
+$window   = 3600; // за 1 час (секунды)
+$now      = time();
+
+$rateData = ['count' => 0, 'window_start' => $now];
+if (file_exists($rateFile)) {
+    $rateData = json_decode(file_get_contents($rateFile), true);
+    if ($now - $rateData['window_start'] > $window) {
+        // Окно истекло — сбрасываем
+        $rateData = ['count' => 0, 'window_start' => $now];
+    }
+}
+
+if ($rateData['count'] >= $limit) {
+    http_response_code(429);
+    echo json_encode(['error' => 'Too many requests. Try again later.']);
+    exit();
+}
+
+$rateData['count']++;
+file_put_contents($rateFile, json_encode($rateData), LOCK_EX);
+
+// --- Конфиг и PHPMailer ---
 $configFile = __DIR__ . '/../config.php';
 if (!file_exists($configFile)) {
     http_response_code(500);
@@ -30,6 +79,7 @@ require __DIR__ . '/../PHPMailer/Exception.php';
 require __DIR__ . '/../PHPMailer/PHPMailer.php';
 require __DIR__ . '/../PHPMailer/SMTP.php';
 
+// --- Читаем данные ---
 $rawData = file_get_contents('php://input');
 $data    = json_decode($rawData, true);
 
@@ -39,16 +89,26 @@ if (!$data) {
     exit();
 }
 
-$name    = trim($data['name'] ?? '');
-$phone   = trim($data['phone'] ?? '');
-$details = trim($data['details'] ?? '');
+$name     = trim($data['name'] ?? '');
+$phone    = trim($data['phone'] ?? '');
+$details  = trim($data['details'] ?? '');
+$honeypot = trim($data['_hp'] ?? ''); // honeypot поле
 
+// --- Защита 3: Honeypot ---
+if (!empty($honeypot)) {
+    // Бот заполнил скрытое поле — делаем вид что всё ок
+    echo json_encode(['success' => true]);
+    exit();
+}
+
+// --- Валидация ---
 if (strlen($name) < 2 || strlen($phone) < 10) {
     http_response_code(422);
     echo json_encode(['error' => 'Validation failed']);
     exit();
 }
 
+// --- Отправка письма ---
 $mail = new PHPMailer(true);
 
 try {
