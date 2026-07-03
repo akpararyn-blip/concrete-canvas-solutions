@@ -18,13 +18,13 @@ import { SITE } from '@/lib/site';
 export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
-      { title: 'Бетонное полотно ГЦКМ — производство и продажа | ЗЭМ Электровибромашина' },
+      { title: 'Бетонное полотно ГЦКМ — поставка и продажа | ЗЭМ Электровибромашина' },
       {
         name: 'description',
         content:
           'Бетонное полотно (Concrete Canvas) от производителя. Монтаж в 10× быстрее бетона, 80% прочности за 24 часа, срок службы 120 лет. Доставка по России.',
       },
-      { property: 'og:title', content: 'Бетонное полотно ГЦКМ — производство и продажа' },
+      { property: 'og:title', content: 'Бетонное полотно ГЦКМ — поставка и продажа' },
       {
         property: 'og:description',
         content:
@@ -85,7 +85,7 @@ function HomePage() {
         <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 lg:grid-cols-2 lg:gap-8 lg:px-6 lg:py-24">
           <Reveal className="flex flex-col justify-center">
             <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-brand/30 bg-brand-soft px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-dark">
-              <span className="h-2 w-2 rounded-full bg-brand" /> Завод по производству и поставке в России
+              <span className="h-2 w-2 rounded-full bg-brand" /> Поставка в России и СНГ
             </div>
             <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               Бетонное полотно —

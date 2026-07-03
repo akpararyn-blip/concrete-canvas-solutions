@@ -9,7 +9,7 @@ export function Footer() {
         <div className="lg:col-span-1">
           <div className="font-display text-xl font-bold text-white">Бетонное полотно</div>
           <p className="mt-3 text-sm leading-relaxed text-white/65">
-            {SITE.company} — производство и поставка инновационного геосинтетического
+            {SITE.company} — поставка инновационного геосинтетического
             цементно-композитного мата.
           </p>
         </div>

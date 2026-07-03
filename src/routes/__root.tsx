@@ -59,7 +59,7 @@ const jsonLd = {
       "@id": `${SITE_URL}/#website`,
       "url": SITE_URL,
       "name": "Бетонное полотно ГЦКМ",
-      "description": "Производство и продажа бетонного полотна (ГЦКМ / Concrete Canvas). Доставка по России.",
+      "description": "Поставка бетонного полотна (ГЦКМ / Concrete Canvas). Доставка по России.",
       "publisher": {
         "@id": `${SITE_URL}/#organization`,
       },
@@ -137,14 +137,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Производство и продажа бетонного полотна (ГЦКМ). Скорость монтажа в 10× быстрее обычного бетона, срок службы 120 лет. Доставка по России.",
+          "Поставка бетонного полотна (ГЦКМ). Скорость монтажа в 10× быстрее обычного бетона, срок службы 120 лет. Доставка по России.",
       },
       { property: "og:site_name", content: "ЗЭМ Электровибромашина" },
       { property: "og:type", content: "website" },
       { property: "og:image", content: OG_IMAGE },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "Бетонное полотно ГЦКМ — производство и продажа" },
+      { property: "og:image:alt", content: "Бетонное полотно ГЦКМ — поставка в РФ" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: OG_IMAGE },
     ],

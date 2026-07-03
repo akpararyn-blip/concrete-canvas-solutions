@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { CheckCircle2, Droplets, Layers, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, Droplets, Layers, ShieldCheck, Beaker, Waves, Search, Shield } from 'lucide-react';
 import { ContactFormSection } from '@/components/ContactFormSection';
 import { Reveal, Section } from '@/components/Section';
 
@@ -69,6 +69,28 @@ const types = [
     compactRoll: '—',
     bigRoll: '1.1 × 73 м / 80 м²',
     best: 'Высокие нагрузки, промышленные объекты',
+  },
+];
+
+const hydroTypes = [
+  {
+    name: 'ССНТ1™',
+    gccm: 'CC Hydro Тип I',
+    thickness: '6 мм',
+    weight: '8 кг/м²',
+    geomembrane: '1.0 мм (ПВХ)',
+    bigRoll: '1.0 × 150 м / 150 м²',
+    best: 'Противофильтрационные экраны, легкие химические нагрузки',
+  },
+  {
+    name: 'ССНТ2™',
+    gccm: 'CC Hydro Тип II',
+    thickness: '8 мм',
+    weight: '12 кг/м²',
+    geomembrane: '1.0 мм (ПВХ)',
+    bigRoll: '1.0 × 100 м / 100 м²',
+    best: 'Объекты тяжелой промышленности, дамбы, резервуары',
+    accent: true,
   },
 ];
 
@@ -257,7 +279,7 @@ function ProductPage() {
       {/* Типы ССТ */}
       <Section
         eyebrow="Типоразмеры"
-        title="Три типа под любую задачу"
+        title="Три типа под любую задачу (Линейка ССТ)"
         description="Concrete Canvas выпускается в трёх типах по классификации ASTM D8364. Чем выше тип — тем толще полотно, тяжелее и прочнее."
       >
         <div className="grid gap-6 lg:grid-cols-3">
@@ -309,9 +331,80 @@ function ProductPage() {
         </div>
       </Section>
 
-      {/* Технические таблицы */}
+      {/* Спецлинейка CC Hydro */}
       <Section
         className="bg-surface"
+        eyebrow="Спецлинейка"
+        title="CC Hydro (ССНТ) — Максимальная герметичность"
+        description="Сочетает технологию ГЦКМ и химически стойкую геомембрану (ПВХ 1.0 мм). Идеально для противофильтрационных экранов, тяжелой промышленности и агрессивных сред."
+      >
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4 mb-10">
+          {[
+            { icon: Waves, title: 'Абсолютная герметичность', text: 'Проводимость свыше 1×10⁻¹² м/с для надежной изоляции.' },
+            { icon: Beaker, title: 'Химическая стойкость', text: 'Устойчивость к агрессивным соединениям (нефтепродукты, кислоты).' },
+            { icon: Search, title: 'Контроль качества', text: 'Сварочная полоса позволяет тестировать швы прямо на объекте.' },
+            { icon: Shield, title: 'Максимальная защита', text: 'Бетонное покрытие защищает мембрану от проколов, УФ и животных.' },
+          ].map((f, i) => (
+            <Reveal key={f.title} style={{ transitionDelay: `${i * 80}ms` } as React.CSSProperties}>
+              <div className="h-full rounded-2xl border border-border bg-card p-5 text-center transition hover:border-brand/50">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand-dark mb-4">
+                  <f.icon className="h-6 w-6" />
+                </div>
+                <h4 className="font-display text-sm font-bold mb-2">{f.title}</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">{f.text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-2 max-w-4xl mx-auto">
+          {hydroTypes.map((t, i) => (
+            <Reveal key={t.name} style={{ transitionDelay: `${i * 80}ms` } as React.CSSProperties}>
+              <div className={`relative flex flex-col h-full rounded-3xl border bg-card p-7 transition hover:-translate-y-1 hover:shadow-xl ${
+                t.accent ? 'border-brand shadow-lg' : 'border-border'
+              }`}>
+                {t.accent && (
+                  <div className="absolute right-4 top-4 rounded-full gradient-brand px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-foreground">
+                    Популярный
+                  </div>
+                )}
+                <div className="mb-6">
+                  <div className="font-display text-3xl font-extrabold text-foreground">{t.name}</div>
+                  <div className="mt-1 text-sm font-semibold text-brand">{t.gccm}</div>
+                </div>
+                <div className="grid grid-cols-3 gap-3 mb-6">
+                  <div className="rounded-xl bg-surface p-3 text-center flex flex-col justify-center">
+                    <div className="font-display text-xl font-extrabold text-brand whitespace-nowrap">{t.thickness}</div>
+                    <div className="mt-0.5 text-xs text-muted-foreground">толщина</div>
+                  </div>
+                  <div className="rounded-xl bg-surface p-3 text-center flex flex-col justify-center">
+                    <div className="font-display text-xl font-extrabold text-brand whitespace-nowrap">{t.weight}</div>
+                    <div className="mt-0.5 text-xs text-muted-foreground">масса (сухая)</div>
+                  </div>
+                  <div className="rounded-xl bg-surface p-3 text-center flex flex-col justify-center">
+                    <div className="font-display text-base font-extrabold text-brand leading-tight">{t.geomembrane}</div>
+                    <div className="mt-0.5 text-xs text-muted-foreground">мембрана</div>
+                  </div>
+                </div>
+                <div className="space-y-2 mb-6 flex-1">
+                  <div className="flex justify-between items-center text-sm pt-1 pb-1 border-b border-border">
+                    <span className="text-muted-foreground">Форма поставки</span>
+                    <span className="font-semibold text-foreground text-right">{t.bigRoll}</span>
+                  </div>
+                </div>
+                <div className="rounded-xl bg-brand-soft border border-brand/20 p-3">
+                  <div className="text-xs font-semibold text-brand-dark">Применение:</div>
+                  <div className="mt-0.5 text-xs text-muted-foreground">{t.best}</div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Технические таблицы */}
+      <Section
+        className="bg-background"
         eyebrow="Характеристики"
         title="Технические параметры"
         description="Данные испытаний согласно международным стандартам ASTM и BS EN."

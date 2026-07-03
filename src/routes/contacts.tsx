@@ -27,7 +27,7 @@ const localBusinessJsonLd = {
   '@id': 'https://xn--90aiayiacdcbbbi0bj.xn--p1acf/#organization',
   name: 'ООО ЗЭМ «Электровибромашина»',
   description:
-    'Производство и продажа бетонного полотна (ГЦКМ / Concrete Canvas). Поставки по России и СНГ.',
+    'Поставка бетонного полотна (ГЦКМ / Concrete Canvas). Поставки по России и СНГ.',
   url: 'https://xn--90aiayiacdcbbbi0bj.xn--p1acf/#organization',
   telephone: '+78632963631',
   email: 'zemEVM@inbox.ru',
