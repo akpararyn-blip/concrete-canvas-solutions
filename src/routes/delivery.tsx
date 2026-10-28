@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { ContactFormSection } from '@/components/ContactFormSection';
 import { Reveal, Section } from '@/components/Section';
 import { Calculator } from '@/components/Calculator';
+import { SITE } from '@/lib/site';
 
 export const Route = createFileRoute('/delivery')({
   head: () => ({
@@ -12,10 +13,11 @@ export const Route = createFileRoute('/delivery')({
         content:
           'Два формата рулонов бетонного полотна: компактные для ручного монтажа и большие для промышленной укладки. Три типа ССТ — толщина 5, 7 и 11 мм.',
       },
+      { property: 'og:description', content: 'Два формата рулонов бетонного полотна: компактные для ручного монтажа и большие для промышленной укладки. Три типа ССТ — толщина 5, 7 и 11 мм.' },
       { property: 'og:title', content: 'Формы поставки бетонного полотна' },
-      { property: 'og:url', content: '/delivery' },
+      { property: 'og:url', content: `${SITE.url}/delivery` },
     ],
-    links: [{ rel: 'canonical', href: '/delivery' }],
+    links: [{ rel: 'canonical', href: `${SITE.url}/delivery` }],
   }),
   component: DeliveryPage,
 });
@@ -74,6 +76,7 @@ function DeliveryPage() {
     <>
       {/* Карточки форматов */}
       <Section
+        headingAs="h1"
         eyebrow="Формы поставки"
         title="Два формата под задачи объекта"
         description="Бетонное полотно поставляется в компактных и больших рулонах. В каждом формате доступны три типа полотна — ССТ1™, ССТ2™ и ССТ3™ — отличающиеся толщиной и площадью покрытия."

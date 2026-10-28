@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Reveal, Section } from '@/components/Section';
 import { Calculator } from '@/components/Calculator';
+import { SITE } from '@/lib/site';
 
 export const Route = createFileRoute('/calculator')({
   head: () => ({
@@ -11,10 +12,11 @@ export const Route = createFileRoute('/calculator')({
         content:
           'Рассчитайте количество рулонов и суммарный вес бетонного полотна по площади покрытия. Выберите формат (компактные или большие рулоны) и тип ССТ.',
       },
+      { property: 'og:description', content: 'Рассчитайте количество рулонов и суммарный вес бетонного полотна по площади покрытия. Выберите формат (компактные или большие рулоны) и тип ССТ.' },
       { property: 'og:title', content: 'Калькулятор бетонного полотна' },
-      { property: 'og:url', content: '/calculator' },
+      { property: 'og:url', content: `${SITE.url}/calculator` },
     ],
-    links: [{ rel: 'canonical', href: '/calculator' }],
+    links: [{ rel: 'canonical', href: `${SITE.url}/calculator` }],
   }),
   component: CalculatorPage,
 });
@@ -22,6 +24,7 @@ export const Route = createFileRoute('/calculator')({
 function CalculatorPage() {
   return (
     <Section
+      headingAs="h1"
       eyebrow="Калькулятор"
       title="Рассчитайте количество рулонов"
       description="Выберите формат поставки и тип полотна, введите площадь покрытия — калькулятор покажет количество рулонов и суммарный вес материала."

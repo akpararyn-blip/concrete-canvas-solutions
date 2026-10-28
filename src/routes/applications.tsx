@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { ImagePlaceholder } from '@/components/ImagePlaceholder';
 import { Reveal, Section } from '@/components/Section';
 import { applications } from '@/data/applications';
+import { SITE } from '@/lib/site';
 
 export const Route = createFileRoute('/applications')({
   head: () => ({
@@ -13,10 +14,11 @@ export const Route = createFileRoute('/applications')({
         content:
           'Укрепление склонов и берегов, облицовка каналов и прудов, противофильтрационные сооружения, защитные дамбы, ремонт бетонных конструкций.',
       },
+      { property: 'og:description', content: 'Укрепление склонов и берегов, облицовка каналов и прудов, противофильтрационные сооружения, защитные дамбы, ремонт бетонных конструкций.' },
       { property: 'og:title', content: 'Сферы применения бетонного полотна' },
-      { property: 'og:url', content: '/applications' },
+      { property: 'og:url', content: `${SITE.url}/applications` },
     ],
-    links: [{ rel: 'canonical', href: '/applications' }],
+    links: [{ rel: 'canonical', href: `${SITE.url}/applications` }],
   }),
   component: ApplicationsPage,
 });
@@ -27,6 +29,7 @@ function ApplicationsPage() {
   return (
     <>
       <Section
+        headingAs="h1"
         eyebrow="Применение"
         title="Где работает бетонное полотно"
         description="Инновационный материал открывает широкие возможности применения в гражданском, промышленном и гидротехническом строительстве. Узнайте больше о видах применения продукции Concrete Canvas ниже."

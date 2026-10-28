@@ -14,8 +14,10 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
+import { SITE } from "@/lib/site";
+import { METRIKA_ID, metrikaScript, useMetrikaPageviews } from "@/lib/metrika";
 
-const SITE_URL = "https://бетонноеполотно.рус"; // ← замени на свой домен
+const SITE_URL = SITE.url;
 const OG_IMAGE = `${SITE_URL}/images/og-image.jpg`;
 
 const jsonLd = {
@@ -165,8 +167,18 @@ function RootShell({ children }: { children: ReactNode }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script dangerouslySetInnerHTML={{ __html: metrikaScript }} />
       </head>
       <body>
+        <noscript>
+          <div>
+            <img
+              src={`https://mc.yandex.ru/watch/${METRIKA_ID}`}
+              style={{ position: "absolute", left: "-9999px" }}
+              alt=""
+            />
+          </div>
+        </noscript>
         {children}
         <Scripts />
       </body>
@@ -176,6 +188,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useMetrikaPageviews();
 
   return (
     <QueryClientProvider client={queryClient}>

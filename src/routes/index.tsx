@@ -30,9 +30,9 @@ export const Route = createFileRoute('/')({
         content:
           'Гибкий цементно-композитный мат для укрепления склонов, каналов и берегов. Монтаж в любую погоду.',
       },
-      { property: 'og:url', content: '/' },
+      { property: 'og:url', content: `${SITE.url}/` },
     ],
-    links: [{ rel: 'canonical', href: '/' }],
+    links: [{ rel: 'canonical', href: `${SITE.url}/` }],
   }),
   component: HomePage,
 });

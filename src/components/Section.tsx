@@ -23,6 +23,8 @@ interface SectionProps extends Props {
   title?: string;
   description?: string;
   center?: boolean;
+  /** h1 — для первой секции внутренней страницы (один h1 на страницу) */
+  headingAs?: 'h1' | 'h2';
 }
 
 export function Section({
@@ -33,6 +35,7 @@ export function Section({
   title,
   description,
   center,
+  headingAs: Heading = 'h2',
 }: SectionProps) {
   return (
     <section id={id} className={cn('py-16 lg:py-24', className)}>
@@ -45,9 +48,9 @@ export function Section({
               </div>
             )}
             {title && (
-              <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl lg:text-5xl">
+              <Heading className="text-3xl font-extrabold text-foreground sm:text-4xl lg:text-5xl">
                 {title}
-              </h2>
+              </Heading>
             )}
             {description && (
               <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{description}</p>

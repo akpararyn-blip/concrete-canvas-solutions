@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Anchor, Clock, Droplets, Maximize2, ScanLine, Users, Zap } from 'lucide-react';
 import { ContactFormSection } from '@/components/ContactFormSection';
 import { Reveal, Section } from '@/components/Section';
+import { SITE } from '@/lib/site';
 
 export const Route = createFileRoute('/installation')({
   head: () => ({
@@ -12,10 +13,11 @@ export const Route = createFileRoute('/installation')({
         content:
           'Пошаговая инструкция монтажа бетонного полотна: подготовка, раскатка, крепление, стыковка, гидратация, твердение. Без опалубки и спецтехники.',
       },
+      { property: 'og:description', content: 'Пошаговая инструкция монтажа бетонного полотна: подготовка, раскатка, крепление, стыковка, гидратация, твердение. Без опалубки и спецтехники.' },
       { property: 'og:title', content: 'Технология монтажа бетонного полотна' },
-      { property: 'og:url', content: '/installation' },
+      { property: 'og:url', content: `${SITE.url}/installation` },
     ],
-    links: [{ rel: 'canonical', href: '/installation' }],
+    links: [{ rel: 'canonical', href: `${SITE.url}/installation` }],
   }),
   component: InstallationPage,
 });
@@ -87,6 +89,7 @@ function InstallationPage() {
     <>
       {/* Быстрые факты */}
       <Section
+        headingAs="h1"
         eyebrow="Монтаж"
         title="Просто раскатайте и добавьте воды"
         description="Не требует опалубки, бетономешалок и квалифицированных бетонщиков. Монтаж ведётся в любую погоду — даже под водой."

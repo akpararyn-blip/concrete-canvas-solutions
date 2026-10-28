@@ -13,10 +13,11 @@ export const Route = createFileRoute('/contacts')({
         content:
           'Телефон 8 (863) 296-36-31, email zemEVM@inbox.ru. Юридический адрес: г. Новочеркасск, ул. Буденновская, 277. Форма обратной связи.',
       },
+      { property: 'og:description', content: 'Телефон 8 (863) 296-36-31, email zemEVM@inbox.ru. Юридический адрес: г. Новочеркасск, ул. Буденновская, 277. Форма обратной связи.' },
       { property: 'og:title', content: 'Контакты — ЗЭМ Электровибромашина' },
-      { property: 'og:url', content: '/contacts' },
+      { property: 'og:url', content: `${SITE.url}/contacts` },
     ],
-    links: [{ rel: 'canonical', href: '/contacts' }],
+    links: [{ rel: 'canonical', href: `${SITE.url}/contacts` }],
   }),
   component: ContactsPage,
 });
@@ -24,11 +25,11 @@ export const Route = createFileRoute('/contacts')({
 const localBusinessJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  '@id': 'https://xn--90aiayiacdcbbbi0bj.xn--p1acf/#organization',
+  '@id': `${SITE.url}/#organization`,
   name: 'ООО ЗЭМ «Электровибромашина»',
   description:
     'Поставка бетонного полотна (ГЦКМ / Concrete Canvas). Поставки по России и СНГ.',
-  url: 'https://xn--90aiayiacdcbbbi0bj.xn--p1acf/#organization',
+  url: `${SITE.url}/#organization`,
   telephone: '+78632963631',
   email: 'zemEVM@inbox.ru',
   address: {
@@ -78,6 +79,7 @@ function ContactsPage() {
       />
 
       <Section
+        headingAs="h1"
         eyebrow="Контакты"
         title="Свяжитесь с нами"
         description="Ответим на вопросы по продукту, подготовим коммерческое предложение и рассчитаем поставку под ваш объект."

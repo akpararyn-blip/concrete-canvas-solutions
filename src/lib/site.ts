@@ -1,4 +1,9 @@
 export const SITE = {
+  // основной домен: canonical, og:url, JSON-LD (для sitemap/robots — DOMAIN в scripts/emit-php.mjs)
+  url: 'https://concrete-canvas.ru',
+  // дата актуализации политик (privacy, terms, cookies); фиксированная, а не new Date(),
+  // иначе пререндер и браузер рисуют разные даты и React падает с ошибкой гидратации
+  legalUpdated: '03.07.2026',
   company: 'ООО ЗЭМ «Электровибромашина»',
   product: 'Бетонное полотно',
   phonePrimary: '8 (863) 296-36-31',

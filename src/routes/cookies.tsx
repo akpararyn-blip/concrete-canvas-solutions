@@ -8,23 +8,24 @@ export const Route = createFileRoute('/cookies')({
       { title: 'Политика cookie — ЗЭМ Электровибромашина' },
       {
         name: 'description',
-        content: 'Политика использования файлов cookie на сайте https://бетонноеполотно.рус/ ООО ЗЭМ «Электровибромашина».',
+        content: 'Политика использования файлов cookie на сайте https://concrete-canvas.ru/ ООО ЗЭМ «Электровибромашина».',
       },
+      { property: 'og:description', content: 'Политика использования файлов cookie на сайте https://concrete-canvas.ru/ ООО ЗЭМ «Электровибромашина».' },
       { property: 'og:title', content: 'Политика cookie' },
-      { property: 'og:url', content: '/cookies' },
+      { property: 'og:url', content: `${SITE.url}/cookies` },
     ],
-    links: [{ rel: 'canonical', href: '/cookies' }],
+    links: [{ rel: 'canonical', href: `${SITE.url}/cookies` }],
   }),
   component: CookiesPage,
 });
 
 function CookiesPage() {
   return (
-    <Section eyebrow="Документы" title="Политика использования файлов cookie">
+    <Section headingAs="h1" eyebrow="Документы" title="Политика использования файлов cookie">
       <Reveal>
         <div className="prose-doc">
           <p className="text-sm text-muted-foreground">
-            Дата актуализации: {new Date().toLocaleDateString('ru-RU')}
+            Дата актуализации: {SITE.legalUpdated}
           </p>
 
           <h2>1. Что такое файлы cookie</h2>
@@ -37,7 +38,7 @@ function CookiesPage() {
 
           <h2>2. Какие файлы cookie мы используем</h2>
           <p>
-            2.1. На Сайте https://бетонноеполотно.рус/ используются <strong>необходимые (технические) файлы cookie</strong>. Они обеспечивают корректное отображение страниц, работу форм обратной связи и запоминают информацию о том, дали ли вы согласие на использование cookie.
+            2.1. На Сайте https://concrete-canvas.ru/ используются <strong>необходимые (технические) файлы cookie</strong>. Они обеспечивают корректное отображение страниц, работу форм обратной связи и запоминают информацию о том, дали ли вы согласие на использование cookie.
           </p>
           <p>
             2.2. На Сайте также используются <strong>аналитические файлы cookie</strong> с помощью сервиса веб-аналитики «Яндекс.Метрика», предоставляемого ООО «ЯНДЕКС» (Россия, 119021, г. Москва, ул. Льва Толстого, д. 16).

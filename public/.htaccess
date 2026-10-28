@@ -1,0 +1,30 @@
+# Главный домен сайта: https://concrete-canvas.ru
+# Все остальные домены, www и http — 301 на него (бетонноеполотно.рус редиректит
+# своим .htaccess в отдельной папке на хостинге).
+# Хостинг sweb: Apache за nginx — https определяем только по X-Forwarded-Proto.
+Options -Indexes
+DirectorySlash Off
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+RewriteBase /
+
+# Файлы подтверждения Яндекс Вебмастера — без редиректа
+RewriteRule ^yandex_[0-9a-f]+\.html$ - [L]
+
+# /page/index.html -> /page
+RewriteCond %{THE_REQUEST} \s/+(.*?/)?index\.html[\s?]
+RewriteRule ^(.*?)/?index\.html$ https://concrete-canvas.ru/$1 [R=301,L]
+
+# /page/ -> /page
+RewriteRule ^(.+)/$ https://concrete-canvas.ru/$1 [R=301,L]
+
+# Чужой домен, www или http -> https://concrete-canvas.ru
+RewriteCond %{HTTP_HOST} !^concrete-canvas\.ru$ [NC,OR]
+RewriteCond %{HTTP:X-Forwarded-Proto} !^https$ [NC]
+RewriteRule ^(.*)$ https://concrete-canvas.ru/$1 [R=301,L]
+
+# /page отдаём из /page/index.html без редиректа
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.+)$ $1/index.html [L]

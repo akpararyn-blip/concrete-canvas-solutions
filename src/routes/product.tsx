@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { ContactFormSection } from '@/components/ContactFormSection';
 import { Reveal, Section } from '@/components/Section';
+import { SITE } from '@/lib/site';
 
 export const Route = createFileRoute('/product')({
   head: () => ({
@@ -38,9 +39,9 @@ export const Route = createFileRoute('/product')({
         content:
           'Четыре линейки Concrete Canvas: универсальный CCT, герметичный CC Hydro, крупноформатный CCX и быстровозводимые резервуары DEPLOY.',
       },
-      { property: 'og:url', content: '/product' },
+      { property: 'og:url', content: `${SITE.url}/product` },
     ],
-    links: [{ rel: 'canonical', href: '/product' }],
+    links: [{ rel: 'canonical', href: `${SITE.url}/product` }],
   }),
   component: ProductPage,
 });
@@ -267,6 +268,7 @@ function ProductPage() {
 
       {/* Что это такое */}
       <Section
+        headingAs="h1"
         eyebrow="О продукте"
         title="Бетонное полотно — ГЦКМ"
         description="Геосинтетический цементно-композитный мат (Concrete Canvas) — инновационный материал, который объединяет прочность бетона с гибкостью рулонного покрытия."

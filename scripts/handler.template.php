@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // --- Защита 1: проверка Referer ---
 $allowedDomains = [
+    'concrete-canvas.ru',
     'бетонноеполотно.рус',
     'xn--90aiayiacdcbbbi0bj.xn--p1acf',
     'localhost',

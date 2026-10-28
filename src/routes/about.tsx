@@ -11,10 +11,11 @@ export const Route = createFileRoute('/about')({
         content:
           'ООО ЗЭМ «Электровибромашина» — поставка бетонного полотна. Реквизиты компании, юридический адрес, контакты.',
       },
+      { property: 'og:description', content: 'ООО ЗЭМ «Электровибромашина» — поставка бетонного полотна. Реквизиты компании, юридический адрес, контакты.' },
       { property: 'og:title', content: 'О компании ЗЭМ Электровибромашина' },
-      { property: 'og:url', content: '/about' },
+      { property: 'og:url', content: `${SITE.url}/about` },
     ],
-    links: [{ rel: 'canonical', href: '/about' }],
+    links: [{ rel: 'canonical', href: `${SITE.url}/about` }],
   }),
   component: AboutPage,
 });
@@ -40,6 +41,7 @@ function AboutPage() {
   return (
     <>
       <Section
+        headingAs="h1"
         eyebrow="Компания"
         title="ООО ЗЭМ «Электровибромашина»"
         description="Поставка бетонного полотна. Поставляем инновационный геосинтетический цементно-композитный мат для строительных, гидротехнических и инфраструктурных проектов по всей России."

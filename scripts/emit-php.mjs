@@ -51,7 +51,7 @@ writeFileSync(
 );
 
 // --- Конфиг сайта ---
-const DOMAIN = 'https://xn--90aiayiacdcbbbi0bj.xn--p1acf';
+const DOMAIN = 'https://concrete-canvas.ru';
 
 const routes = [
   { path: '/',             changefreq: 'weekly',  priority: '1.0' },
