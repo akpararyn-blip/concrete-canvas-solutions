@@ -6,6 +6,14 @@ Options -Indexes
 DirectorySlash Off
 ErrorDocument 404 /404.html
 
+# HTML браузер перепроверяет при каждом заходе (ETag), иначе после выкладки
+# у вернувшихся посетителей старая страница ищет удалённые JS-файлы
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
 RewriteEngine On
 RewriteBase /
 
